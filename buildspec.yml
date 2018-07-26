@@ -34,7 +34,6 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...      
-      - npm ci    
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
@@ -49,5 +48,4 @@ artifacts:
     files: imagedefinitions.json
 cache:
     paths:
-      - ~/.npm
       - /var/lib/docker/**/*
