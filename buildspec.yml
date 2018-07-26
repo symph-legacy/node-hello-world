@@ -30,12 +30,14 @@ phases:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=532012914680.dkr.ecr.us-east-1.amazonaws.com/node-hello-world
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - docker pull $REPOSITORY_URI:$REF_NAME || true
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...      
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      # - docker build -t $REPOSITORY_URI:latest .
+      # - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker build --cache-from $REPOSITORY_URI:$REF_NAME --tag $REPOSITORY_URI:$REF_NAME --tag $REPOSITORY_URI:ref-$CODEBUILD_RESOLVED_SOURCE_VERSION .
   post_build:
     commands:
       - echo Build completed on `date`
