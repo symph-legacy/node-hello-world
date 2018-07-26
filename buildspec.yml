@@ -29,6 +29,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
+      - AWS_DEFAULT_REGION=us-east-1
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=532012914680.dkr.ecr.us-east-1.amazonaws.com/node-hello-world
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
