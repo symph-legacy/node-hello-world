@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express updated deregister 0 value' });
+  res.render('index', { title: 'Express updated sempahore ci' });
 });
 
 module.exports = router;
